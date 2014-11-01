@@ -10,6 +10,14 @@ public class Vector3D {
 		this.z = z;
 	}
 
+	public Vector3D normalize() {
+		double length = Math.sqrt(x * x + y * y + z * z);
+		x = x / length;
+		y = y / length;
+		z = z / length;
+		return this;
+	}
+
 	public double getX() {
 		return x;
 	}
