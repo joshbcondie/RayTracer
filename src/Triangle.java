@@ -1,9 +1,9 @@
-public class Triangle implements Surface {
+public class Triangle extends Surface {
 
-	Vector3D v1;
-	Vector3D v2;
-	Vector3D v3;
-	Vector3D normal;
+	private Vector3D v1;
+	private Vector3D v2;
+	private Vector3D v3;
+	private Vector3D normal;
 
 	public Triangle(Vector3D v1, Vector3D v2, Vector3D v3) {
 		this.v1 = v1;

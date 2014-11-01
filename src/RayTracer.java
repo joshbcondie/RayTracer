@@ -11,8 +11,16 @@ public class RayTracer {
 
 		Scene scene = new Scene();
 		scene.setBackground(Color.BLACK);
-		scene.addSurface(new Triangle(new Vector3D(0, -0.5, 0.5), new Vector3D(
-				1, .5, 0), new Vector3D(0, -.5, -.5)));
+		scene.addSurface(new Sphere(new Vector3D(0, .3, 0), .2)
+				.setReflective(new Color(192, 192, 192)));
+		scene.addSurface(new Triangle(new Vector3D(0, -.5, .5), new Vector3D(1,
+				.5, 0), new Vector3D(0, -.5, -.5))
+				.setDiffuse(new Color(0, 0, 255))
+				.setSpecular(new Color(255, 255, 255)).setPhongConstant(4));
+		scene.addSurface(new Triangle(new Vector3D(0, -.5, .5), new Vector3D(0,
+				-.5, -.5), new Vector3D(-1, .5, 0))
+				.setDiffuse(new Color(255, 255, 0))
+				.setSpecular(new Color(255, 255, 255)).setPhongConstant(4));
 
 		Color[][] pixels = new Color[SIZE][SIZE];
 
@@ -22,6 +30,7 @@ public class RayTracer {
 				ray.setOrigin(new Vector3D(0, 0, SIZE / 2 / Math.tan(FOV / 2)));
 				ray.setDirection(new Vector3D(x - SIZE / 2 + 0.5, SIZE / 2 - y
 						- 0.5, 0).normalize());
+				ray.setColor(scene.getBackground());
 				ray.trace(scene);
 				pixels[y][x] = ray.getColor();
 			}

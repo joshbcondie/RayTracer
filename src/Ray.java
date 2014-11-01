@@ -8,8 +8,11 @@ public class Ray {
 	private int depth;
 	private Color color;
 
+	public Ray() {
+		color = Color.black;
+	}
+
 	public void trace(Scene scene) {
-		color = scene.getBackground();
 	}
 
 	public Vector3D getOrigin() {
