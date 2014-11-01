@@ -9,7 +9,7 @@ public class Ray {
 	private Color color;
 
 	public void trace(Scene scene) {
-
+		color = scene.getBackground();
 	}
 
 	public Vector3D getOrigin() {

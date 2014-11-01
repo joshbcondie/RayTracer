@@ -10,6 +10,10 @@ public class RayTracer {
 	public static void main(String[] args) throws FileNotFoundException {
 
 		Scene scene = new Scene();
+		scene.setBackground(Color.BLACK);
+		scene.addSurface(new Triangle(new Vector3D(0, -0.5, 0.5), new Vector3D(
+				1, .5, 0), new Vector3D(0, -.5, -.5)));
+
 		Color[][] pixels = new Color[SIZE][SIZE];
 
 		for (int y = 0; y < SIZE; y++) {
@@ -18,7 +22,6 @@ public class RayTracer {
 				ray.setOrigin(new Vector3D(0, 0, SIZE / 2 / Math.tan(FOV / 2)));
 				ray.setDirection(new Vector3D(x - SIZE / 2 + 0.5, SIZE / 2 - y
 						- 0.5, 0).normalize());
-				ray.setColor(scene.getBackground());
 				ray.trace(scene);
 				pixels[y][x] = ray.getColor();
 			}

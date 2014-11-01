@@ -18,6 +18,15 @@ public class Vector3D {
 		return this;
 	}
 
+	public Vector3D subtract(Vector3D vector) {
+		return new Vector3D(x - vector.x, y - vector.y, z - vector.z);
+	}
+
+	public Vector3D crossProduct(Vector3D vector) {
+		return new Vector3D(y * vector.z - z * vector.y, z * vector.x - x
+				* vector.z, x * vector.y - y * vector.x);
+	}
+
 	public double getX() {
 		return x;
 	}
