@@ -4,8 +4,10 @@ import java.io.PrintWriter;
 
 public class RayTracer {
 
-	private static final int SIZE = 500;
-	private static final double FOV = 55;
+	private static final double WINDOW_SIZE = 1;
+	private static final int VIEWPORT_SIZE = 500;
+	private static final double FOV = 55 * Math.PI / 180;
+	private static final double LOOK_FROM = 1.2;
 
 	public static void main(String[] args) throws FileNotFoundException {
 
@@ -22,14 +24,17 @@ public class RayTracer {
 				.setDiffuse(new Color(255, 255, 0))
 				.setSpecular(new Color(255, 255, 255)).setPhongConstant(4));
 
-		Color[][] pixels = new Color[SIZE][SIZE];
+		Color[][] pixels = new Color[VIEWPORT_SIZE][VIEWPORT_SIZE];
 
-		for (int y = 0; y < SIZE; y++) {
-			for (int x = 0; x < SIZE; x++) {
+		for (int y = 0; y < VIEWPORT_SIZE; y++) {
+			for (int x = 0; x < VIEWPORT_SIZE; x++) {
 				Ray ray = new Ray();
-				ray.setOrigin(new Vector3D(0, 0, SIZE / 2 / Math.tan(FOV / 2)));
-				ray.setDirection(new Vector3D(x - SIZE / 2 + 0.5, SIZE / 2 - y
-						- 0.5, 0).normalize());
+				ray.setOrigin(new Vector3D(0, 0, LOOK_FROM + WINDOW_SIZE / 2
+						/ Math.tan(FOV / 2)));
+				ray.setDirection(new Vector3D(x - WINDOW_SIZE / 2 + 0.5
+						* WINDOW_SIZE / VIEWPORT_SIZE, VIEWPORT_SIZE / 2 - y
+						- 0.5 * WINDOW_SIZE / VIEWPORT_SIZE, -WINDOW_SIZE / 2
+						/ Math.tan(FOV / 2)).normalize());
 				ray.setColor(scene.getBackground());
 				ray.trace(scene);
 				pixels[y][x] = ray.getColor();
@@ -38,10 +43,10 @@ public class RayTracer {
 
 		PrintWriter writer = new PrintWriter("image.ppm");
 		writer.println("P6");
-		writer.println(SIZE + " " + SIZE);
+		writer.println(VIEWPORT_SIZE + " " + VIEWPORT_SIZE);
 		writer.println(255);
-		for (int i = 0; i < SIZE; i++) {
-			for (int j = 0; j < SIZE; j++) {
+		for (int i = 0; i < VIEWPORT_SIZE; i++) {
+			for (int j = 0; j < VIEWPORT_SIZE; j++) {
 				writer.print(pixels[i][j].getRed() + " ");
 				writer.print(pixels[i][j].getGreen() + " ");
 				writer.println(pixels[i][j].getBlue());

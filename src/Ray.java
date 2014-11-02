@@ -13,6 +13,11 @@ public class Ray {
 	}
 
 	public void trace(Scene scene) {
+		for (Surface s : scene.getSurfaces()) {
+			if (s.intersects(this)) {
+				color = Color.white;
+			}
+		}
 	}
 
 	public Vector3D getOrigin() {
