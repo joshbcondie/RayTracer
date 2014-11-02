@@ -22,6 +22,10 @@ public class Vector3D {
 		return new Vector3D(x - vector.x, y - vector.y, z - vector.z);
 	}
 
+	public double dotProduct(Vector3D vector) {
+		return x * vector.x + y * vector.y + z * vector.z;
+	}
+
 	public Vector3D crossProduct(Vector3D vector) {
 		return new Vector3D(y * vector.z - z * vector.y, z * vector.x - x
 				* vector.z, x * vector.y - y * vector.x);

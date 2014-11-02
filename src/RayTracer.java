@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 
 public class RayTracer {
 
-	private static final double WINDOW_SIZE = 1;
+	private static final double WINDOW_SIZE = 2;
 	private static final int VIEWPORT_SIZE = 500;
 	private static final double FOV = 55 * Math.PI / 180;
 	private static final double LOOK_FROM = 1.2;
@@ -12,7 +12,7 @@ public class RayTracer {
 	public static void main(String[] args) throws FileNotFoundException {
 
 		Scene scene = new Scene();
-		scene.setBackground(Color.BLACK);
+		scene.setBackground(new Color(51, 51, 51));
 		scene.addSurface(new Sphere(new Vector3D(0, .3, 0), .2)
 				.setReflective(new Color(192, 192, 192)));
 		scene.addSurface(new Triangle(new Vector3D(0, -.5, .5), new Vector3D(1,
