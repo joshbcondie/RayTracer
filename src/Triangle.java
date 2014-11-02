@@ -9,7 +9,7 @@ public class Triangle extends Surface {
 		this.v1 = v1;
 		this.v2 = v2;
 		this.v3 = v3;
-		normal = v2.subtract(v1).crossProduct(v3.subtract(v2));
+		normal = v2.subtract(v1).crossProduct(v3.subtract(v2)).normalize();
 	}
 
 	@Override

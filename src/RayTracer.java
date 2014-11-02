@@ -31,10 +31,11 @@ public class RayTracer {
 				Ray ray = new Ray();
 				ray.setOrigin(new Vector3D(0, 0, LOOK_FROM + WINDOW_SIZE / 2
 						/ Math.tan(FOV / 2)));
-				ray.setDirection(new Vector3D(x - WINDOW_SIZE / 2 + 0.5
-						* WINDOW_SIZE / VIEWPORT_SIZE, VIEWPORT_SIZE / 2 - y
-						- 0.5 * WINDOW_SIZE / VIEWPORT_SIZE, -WINDOW_SIZE / 2
-						/ Math.tan(FOV / 2)).normalize());
+				ray.setDirection(new Vector3D((x - VIEWPORT_SIZE / 2 + 0.5)
+						* WINDOW_SIZE / VIEWPORT_SIZE,
+						(VIEWPORT_SIZE / 2 - y - 0.5) * WINDOW_SIZE
+								/ VIEWPORT_SIZE, -WINDOW_SIZE / 2
+								/ Math.tan(FOV / 2)).normalize());
 				ray.setColor(scene.getBackground());
 				ray.trace(scene);
 				pixels[y][x] = ray.getColor();
@@ -42,7 +43,7 @@ public class RayTracer {
 		}
 
 		PrintWriter writer = new PrintWriter("image.ppm");
-		writer.println("P6");
+		writer.println("P3");
 		writer.println(VIEWPORT_SIZE + " " + VIEWPORT_SIZE);
 		writer.println(255);
 		for (int i = 0; i < VIEWPORT_SIZE; i++) {
