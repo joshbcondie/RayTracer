@@ -15,8 +15,16 @@ public class Vector3D {
 		return new Vector3D(x / length, y / length, z / length);
 	}
 
+	public Vector3D add(Vector3D vector) {
+		return new Vector3D(x + vector.x, y + vector.y, z + vector.z);
+	}
+
 	public Vector3D subtract(Vector3D vector) {
 		return new Vector3D(x - vector.x, y - vector.y, z - vector.z);
+	}
+
+	public Vector3D scale(double scale) {
+		return new Vector3D(x * scale, y * scale, z * scale);
 	}
 
 	public double dotProduct(Vector3D vector) {

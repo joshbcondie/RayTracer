@@ -14,14 +14,32 @@ public class Ray {
 
 	public void trace(Scene scene) {
 		for (Surface s : scene.getSurfaces()) {
+
 			if (s.intersects(this)) {
-				if (s.getReflective() != null) {
-					color = s.getReflective();
-				} else if (s.getRefractive() != null) {
-					color = s.getRefractive();
-				} else {
-					color = s.getDiffuse();
+
+				boolean shadow = false;
+				Ray shadowRay = new Ray();
+				shadowRay.setOrigin(s.getIntersectionPoint().add(
+						scene.getDirectionToLight().scale(0.01)));
+				shadowRay.setDirection(scene.getDirectionToLight());
+
+				for (Surface s1 : scene.getSurfaces()) {
+					if (s1.intersects(shadowRay)) {
+						shadow = true;
+						color = Color.black;
+					}
 				}
+
+				if (!shadow) {
+					if (s.getReflective() != null) {
+						color = s.getReflective();
+					} else if (s.getRefractive() != null) {
+						color = s.getRefractive();
+					} else {
+						color = s.getDiffuse();
+					}
+				}
+				break;
 			}
 		}
 	}
