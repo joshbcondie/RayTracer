@@ -3,6 +3,8 @@ import java.util.List;
 
 public class Scene {
 
+	private double fov;
+	private double lookFrom;
 	private Vector3D directionToLight;
 	private Color3D lightColor;
 	private Color3D ambientLight;
@@ -11,6 +13,22 @@ public class Scene {
 
 	public Scene() {
 		surfaces = new ArrayList<>();
+	}
+
+	public double getFov() {
+		return fov;
+	}
+
+	public void setFov(double fov) {
+		this.fov = fov;
+	}
+
+	public double getLookFrom() {
+		return lookFrom;
+	}
+
+	public void setLookFrom(double lookFrom) {
+		this.lookFrom = lookFrom;
 	}
 
 	public Vector3D getDirectionToLight() {
