@@ -34,7 +34,30 @@ public class Ray {
 					} else if (s.getRefractive() != null) {
 						color = s.getRefractive();
 					} else {
-						color = s.getDiffuse();
+						Vector3D e = origin.subtract(s.getIntersectionPoint());
+						Vector3D r = s
+								.getNormal()
+								.scale(2 * s.getNormal().dotProduct(
+										scene.getDirectionToLight()))
+								.subtract(scene.getDirectionToLight());
+						color = s
+								.getDiffuse()
+								.multiply(scene.getAmbientLight())
+								.add(scene
+										.getLightColor()
+										.multiply(
+												s.getDiffuse()
+														.scale(Math
+																.max(0,
+																		s.getNormal()
+																				.dotProduct(
+																						scene.getDirectionToLight())))
+														.add(s.getSpecular()
+																.scale(Math
+																		.pow(Math
+																				.max(0,
+																						e.dotProduct(r)),
+																				s.getPhongConstant())))));
 					}
 				}
 				break;
