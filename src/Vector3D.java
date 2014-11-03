@@ -12,10 +12,7 @@ public class Vector3D {
 
 	public Vector3D normalize() {
 		double length = Math.sqrt(x * x + y * y + z * z);
-		x = x / length;
-		y = y / length;
-		z = z / length;
-		return this;
+		return new Vector3D(x / length, y / length, z / length);
 	}
 
 	public Vector3D subtract(Vector3D vector) {
