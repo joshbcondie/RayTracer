@@ -1,13 +1,12 @@
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Scene {
 
 	private Vector3D directionToLight;
-	private Color lightColor;
-	private Color ambientLight;
-	private Color background;
+	private Color3D lightColor;
+	private Color3D ambientLight;
+	private Color3D background;
 	private List<Surface> surfaces;
 
 	public Scene() {
@@ -22,27 +21,27 @@ public class Scene {
 		this.directionToLight = directionToLight;
 	}
 
-	public Color getLightColor() {
+	public Color3D getLightColor() {
 		return lightColor;
 	}
 
-	public void setLightColor(Color lightColor) {
+	public void setLightColor(Color3D lightColor) {
 		this.lightColor = lightColor;
 	}
 
-	public Color getAmbientLight() {
+	public Color3D getAmbientLight() {
 		return ambientLight;
 	}
 
-	public void setAmbientLight(Color ambientLight) {
+	public void setAmbientLight(Color3D ambientLight) {
 		this.ambientLight = ambientLight;
 	}
 
-	public Color getBackground() {
+	public Color3D getBackground() {
 		return background;
 	}
 
-	public void setBackground(Color background) {
+	public void setBackground(Color3D background) {
 		this.background = background;
 	}
 

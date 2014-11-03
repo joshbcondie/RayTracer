@@ -2,6 +2,9 @@ import java.awt.Color;
 
 public class Color3D {
 
+	public static final Color3D BLACK = new Color3D(0, 0, 0);
+	public static final Color3D WHITE = new Color3D(1, 1, 1);
+
 	private double red;
 	private double green;
 	private double blue;

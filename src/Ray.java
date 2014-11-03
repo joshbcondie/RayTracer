@@ -1,15 +1,13 @@
-import java.awt.Color;
-
 public class Ray {
 
 	private Vector3D origin;
 	private Vector3D direction;
 	private double intensity;
 	private int depth;
-	private Color color;
+	private Color3D color;
 
 	public Ray() {
-		color = Color.black;
+		color = Color3D.BLACK;
 	}
 
 	public void trace(Scene scene) {
@@ -26,7 +24,7 @@ public class Ray {
 				for (Surface s1 : scene.getSurfaces()) {
 					if (s1.intersects(shadowRay)) {
 						shadow = true;
-						color = Color.black;
+						color = Color3D.BLACK;
 					}
 				}
 
@@ -76,11 +74,11 @@ public class Ray {
 		this.depth = depth;
 	}
 
-	public Color getColor() {
+	public Color3D getColor() {
 		return color;
 	}
 
-	public void setColor(Color color) {
+	public void setColor(Color3D color) {
 		this.color = color;
 	}
 }

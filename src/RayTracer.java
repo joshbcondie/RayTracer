@@ -13,19 +13,19 @@ public class RayTracer {
 
 		Scene scene = new Scene();
 		scene.setDirectionToLight(new Vector3D(0, 1, 0));
-		scene.setLightColor(new Color(1f, 1f, 1f));
-		scene.setAmbientLight(new Color(0f, 0f, 0f));
-		scene.setBackground(new Color(.2f, .2f, .2f));
+		scene.setLightColor(new Color3D(1, 1, 1));
+		scene.setAmbientLight(new Color3D(0, 0, 0));
+		scene.setBackground(new Color3D(.2, .2, .2));
 		scene.addSurface(new Sphere(new Vector3D(0, .3, 0), .2)
-				.setReflective(new Color(.75f, .75f, .75f)));
+				.setReflective(new Color3D(.75, .75, .75)));
 		scene.addSurface(new Triangle(new Vector3D(0, -.5, .5), new Vector3D(1,
 				.5, 0), new Vector3D(0, -.5, -.5))
-				.setDiffuse(new Color(0f, 0f, 1f))
-				.setSpecular(new Color(1f, 1f, 1f)).setPhongConstant(4));
+				.setDiffuse(new Color3D(0, 0, 1))
+				.setSpecular(new Color3D(1, 1, 1)).setPhongConstant(4));
 		scene.addSurface(new Triangle(new Vector3D(0, -.5, .5), new Vector3D(0,
 				-.5, -.5), new Vector3D(-1, .5, 0))
-				.setDiffuse(new Color(1f, 1f, 0))
-				.setSpecular(new Color(1f, 1f, 1f)).setPhongConstant(4));
+				.setDiffuse(new Color3D(1, 1, 0))
+				.setSpecular(new Color3D(1, 1, 1)).setPhongConstant(4));
 
 		Color[][] pixels = new Color[VIEWPORT_SIZE][VIEWPORT_SIZE];
 
@@ -41,7 +41,7 @@ public class RayTracer {
 								/ Math.tan(FOV / 2)).normalize());
 				ray.setColor(scene.getBackground());
 				ray.trace(scene);
-				pixels[y][x] = ray.getColor();
+				pixels[y][x] = ray.getColor().toColor();
 			}
 		}
 

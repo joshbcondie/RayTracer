@@ -1,12 +1,10 @@
-import java.awt.Color;
-
 public abstract class Surface {
 
-	private Color diffuse;
-	private Color specular;
+	private Color3D diffuse;
+	private Color3D specular;
 	private int phongConstant;
-	private Color reflective;
-	private Color refractive;
+	private Color3D reflective;
+	private Color3D refractive;
 
 	public abstract boolean intersects(Ray ray);
 
@@ -14,20 +12,20 @@ public abstract class Surface {
 
 	public abstract Vector3D getNormal();
 
-	public Color getDiffuse() {
+	public Color3D getDiffuse() {
 		return diffuse;
 	}
 
-	public Surface setDiffuse(Color diffuse) {
+	public Surface setDiffuse(Color3D diffuse) {
 		this.diffuse = diffuse;
 		return this;
 	}
 
-	public Color getSpecular() {
+	public Color3D getSpecular() {
 		return specular;
 	}
 
-	public Surface setSpecular(Color specular) {
+	public Surface setSpecular(Color3D specular) {
 		this.specular = specular;
 		return this;
 	}
@@ -41,20 +39,20 @@ public abstract class Surface {
 		return this;
 	}
 
-	public Color getReflective() {
+	public Color3D getReflective() {
 		return reflective;
 	}
 
-	public Surface setReflective(Color reflective) {
+	public Surface setReflective(Color3D reflective) {
 		this.reflective = reflective;
 		return this;
 	}
 
-	public Color getRefractive() {
+	public Color3D getRefractive() {
 		return refractive;
 	}
 
-	public Surface setRefractive(Color refractive) {
+	public Surface setRefractive(Color3D refractive) {
 		this.refractive = refractive;
 		return this;
 	}
