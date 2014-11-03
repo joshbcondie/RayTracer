@@ -2,10 +2,22 @@ public class Sphere extends Surface {
 
 	private Vector3D center;
 	private double radius;
+	private Vector3D intersectionPoint;
+	private Vector3D normal;
 
 	public Sphere(Vector3D center, double radius) {
 		this.center = center;
 		this.radius = radius;
+	}
+
+	@Override
+	public Vector3D getIntersectionPoint() {
+		return intersectionPoint;
+	}
+
+	@Override
+	public Vector3D getNormal() {
+		return normal;
 	}
 
 	@Override
@@ -38,6 +50,13 @@ public class Sphere extends Surface {
 		} else {
 			t = t1;
 		}
+
+		intersectionPoint = new Vector3D(ray.getOrigin().getX() + t
+				* ray.getDirection().getX(), ray.getOrigin().getY() + t
+				* ray.getDirection().getY(), ray.getOrigin().getZ() + t
+				* ray.getDirection().getZ());
+
+		normal = intersectionPoint.subtract(center).normalize();
 
 		return true;
 	}

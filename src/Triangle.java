@@ -3,6 +3,7 @@ public class Triangle extends Surface {
 	private Vector3D v1;
 	private Vector3D v2;
 	private Vector3D v3;
+	private Vector3D intersectionPoint;
 	private Vector3D normal;
 
 	public Triangle(Vector3D v1, Vector3D v2, Vector3D v3) {
@@ -10,6 +11,16 @@ public class Triangle extends Surface {
 		this.v2 = v2;
 		this.v3 = v3;
 		normal = v2.subtract(v1).crossProduct(v3.subtract(v2)).normalize();
+	}
+
+	@Override
+	public Vector3D getIntersectionPoint() {
+		return intersectionPoint;
+	}
+
+	@Override
+	public Vector3D getNormal() {
+		return normal;
 	}
 
 	@Override
@@ -49,6 +60,17 @@ public class Triangle extends Surface {
 		if (beta < 0 || beta > 1 - gamma) {
 			return false;
 		}
+
+		intersectionPoint = new Vector3D(ray.getOrigin().getX() + t
+				* ray.getDirection().getX(), ray.getOrigin().getY() + t
+				* ray.getDirection().getY(), ray.getOrigin().getZ() + t
+				* ray.getDirection().getZ());
+
+		if (normal.dotProduct(ray.getDirection()) > 0) {
+			normal = new Vector3D(-normal.getX(), -normal.getY(),
+					-normal.getZ());
+		}
+
 		return true;
 	}
 }

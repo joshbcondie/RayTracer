@@ -10,6 +10,10 @@ public abstract class Surface {
 
 	public abstract boolean intersects(Ray ray);
 
+	public abstract Vector3D getIntersectionPoint();
+
+	public abstract Vector3D getNormal();
+
 	public Color getDiffuse() {
 		return diffuse;
 	}
