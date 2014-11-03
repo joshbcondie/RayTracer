@@ -15,6 +15,11 @@ public class Color3D {
 		this.blue = blue;
 	}
 
+	public Color3D add(Color3D color) {
+		return new Color3D(red + color.red, green + color.green, blue
+				+ color.blue).clamp();
+	}
+
 	public Color3D multiply(Color3D color) {
 		return new Color3D(red * color.red, green * color.green, blue
 				* color.blue).clamp();
