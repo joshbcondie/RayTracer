@@ -15,7 +15,13 @@ public class Ray {
 	public void trace(Scene scene) {
 		for (Surface s : scene.getSurfaces()) {
 			if (s.intersects(this)) {
-				color = Color.white;
+				if (s.getReflective() != null) {
+					color = s.getReflective();
+				} else if (s.getRefractive() != null) {
+					color = s.getRefractive();
+				} else {
+					color = s.getDiffuse();
+				}
 			}
 		}
 	}

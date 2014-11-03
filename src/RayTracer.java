@@ -12,17 +12,20 @@ public class RayTracer {
 	public static void main(String[] args) throws FileNotFoundException {
 
 		Scene scene = new Scene();
-		scene.setBackground(new Color(51, 51, 51));
+		scene.setDirectionToLight(new Vector3D(0, 1, 0));
+		scene.setLightColor(new Color(1f, 1f, 1f));
+		scene.setAmbientLight(new Color(0f, 0f, 0f));
+		scene.setBackground(new Color(.2f, .2f, .2f));
 		scene.addSurface(new Sphere(new Vector3D(0, .3, 0), .2)
-				.setReflective(new Color(192, 192, 192)));
+				.setReflective(new Color(.75f, .75f, .75f)));
 		scene.addSurface(new Triangle(new Vector3D(0, -.5, .5), new Vector3D(1,
 				.5, 0), new Vector3D(0, -.5, -.5))
-				.setDiffuse(new Color(0, 0, 255))
-				.setSpecular(new Color(255, 255, 255)).setPhongConstant(4));
+				.setDiffuse(new Color(0f, 0f, 1f))
+				.setSpecular(new Color(1f, 1f, 1f)).setPhongConstant(4));
 		scene.addSurface(new Triangle(new Vector3D(0, -.5, .5), new Vector3D(0,
 				-.5, -.5), new Vector3D(-1, .5, 0))
-				.setDiffuse(new Color(255, 255, 0))
-				.setSpecular(new Color(255, 255, 255)).setPhongConstant(4));
+				.setDiffuse(new Color(1f, 1f, 0))
+				.setSpecular(new Color(1f, 1f, 1f)).setPhongConstant(4));
 
 		Color[][] pixels = new Color[VIEWPORT_SIZE][VIEWPORT_SIZE];
 
