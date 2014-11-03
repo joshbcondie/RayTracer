@@ -51,11 +51,7 @@ public class Sphere extends Surface {
 			t = t1;
 		}
 
-		intersectionPoint = new Vector3D(ray.getOrigin().getX() + t
-				* ray.getDirection().getX(), ray.getOrigin().getY() + t
-				* ray.getDirection().getY(), ray.getOrigin().getZ() + t
-				* ray.getDirection().getZ());
-
+		intersectionPoint = ray.getOrigin().add(ray.getDirection().scale(t));
 		normal = intersectionPoint.subtract(center).normalize();
 
 		return true;

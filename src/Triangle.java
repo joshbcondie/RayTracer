@@ -61,14 +61,10 @@ public class Triangle extends Surface {
 			return false;
 		}
 
-		intersectionPoint = new Vector3D(ray.getOrigin().getX() + t
-				* ray.getDirection().getX(), ray.getOrigin().getY() + t
-				* ray.getDirection().getY(), ray.getOrigin().getZ() + t
-				* ray.getDirection().getZ());
+		intersectionPoint = ray.getOrigin().add(ray.getDirection().scale(t));
 
 		if (normal.dotProduct(ray.getDirection()) > 0) {
-			normal = new Vector3D(-normal.getX(), -normal.getY(),
-					-normal.getZ());
+			normal = normal.scale(-1);
 		}
 
 		return true;
