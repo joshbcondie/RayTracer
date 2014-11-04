@@ -21,34 +21,35 @@ public class Ray {
 
 				closestIntersection = s.getIntersectionPoint().getZ();
 
-				boolean shadow = false;
-				Ray shadowRay = new Ray();
-				shadowRay.setOrigin(s.getIntersectionPoint().add(
-						scene.getDirectionToLight().scale(0.01)));
-				shadowRay.setDirection(scene.getDirectionToLight());
+				if (s.getReflective() != null) {
+					Ray reflection = new Ray();
+					reflection.setDirection(direction.subtract(
+							s.getNormal().scale(
+									2 * direction.dotProduct(s.getNormal())))
+							.normalize());
+					reflection.setOrigin(s.getIntersectionPoint().add(
+							reflection.direction.scale(0.01)));
+					reflection.setColor(scene.getBackground());
+					reflection.trace(scene);
+					color = reflection.color.multiply(s.getReflective());
+				} else if (s.getRefractive() != null) {
+					color = s.getRefractive();
+				} else {
 
-				for (Surface s1 : scene.getSurfaces()) {
-					if (s1.intersects(shadowRay)) {
-						shadow = true;
-						color = Color3D.BLACK;
+					boolean shadow = false;
+					Ray shadowRay = new Ray();
+					shadowRay.setOrigin(s.getIntersectionPoint().add(
+							scene.getDirectionToLight().scale(0.01)));
+					shadowRay.setDirection(scene.getDirectionToLight());
+
+					for (Surface s1 : scene.getSurfaces()) {
+						if (s1.intersects(shadowRay)) {
+							shadow = true;
+							color = Color3D.BLACK;
+						}
 					}
-				}
 
-				if (!shadow) {
-					if (s.getReflective() != null) {
-						Ray reflection = new Ray();
-						reflection.setDirection(direction.subtract(
-								s.getNormal()
-										.scale(2 * direction.dotProduct(s
-												.getNormal()))).normalize());
-						reflection.setOrigin(s.getIntersectionPoint().add(
-								reflection.direction.scale(0.01)));
-						reflection.setColor(scene.getBackground());
-						reflection.trace(scene);
-						color = reflection.color.multiply(s.getReflective());
-					} else if (s.getRefractive() != null) {
-						color = s.getRefractive();
-					} else {
+					if (!shadow) {
 						Vector3D eye = origin
 								.subtract(s.getIntersectionPoint()).normalize();
 						Vector3D reflection = s
@@ -57,6 +58,10 @@ public class Ray {
 										scene.getDirectionToLight()))
 								.subtract(scene.getDirectionToLight())
 								.normalize();
+						if (s.getSpecular() == null) {
+							s.setSpecular(Color3D.BLACK);
+							s.setPhongConstant(1);
+						}
 						color = s
 								.getDiffuse()
 								.multiply(scene.getAmbientLight())
