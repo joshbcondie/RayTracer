@@ -41,8 +41,8 @@ public class Ray {
 								s.getNormal()
 										.scale(2 * direction.dotProduct(s
 												.getNormal()))).normalize());
-						reflection.setOrigin(origin.add(reflection.direction
-								.scale(0.01)));
+						reflection.setOrigin(s.getIntersectionPoint().add(
+								reflection.direction.scale(0.01)));
 						reflection.setColor(scene.getBackground());
 						reflection.trace(scene);
 						color = reflection.color.multiply(s.getReflective());
