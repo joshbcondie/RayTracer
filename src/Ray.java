@@ -11,9 +11,15 @@ public class Ray {
 	}
 
 	public void trace(Scene scene) {
+
+		double closestIntersection = -10000;
+
 		for (Surface s : scene.getSurfaces()) {
 
-			if (s.intersects(this)) {
+			if (s.intersects(this)
+					&& s.getIntersectionPoint().getZ() > closestIntersection) {
+
+				closestIntersection = s.getIntersectionPoint().getZ();
 
 				boolean shadow = false;
 				Ray shadowRay = new Ray();
@@ -62,7 +68,6 @@ public class Ray {
 																				s.getPhongConstant())))));
 					}
 				}
-				break;
 			}
 		}
 	}
