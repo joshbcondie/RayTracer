@@ -9,7 +9,7 @@ public class RayTracer {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
-		Scene[] scenes = new Scene[1];
+		Scene[] scenes = new Scene[2];
 		scenes[0] = new Scene();
 		scenes[0].setFov(55 * Math.PI / 180);
 		scenes[0].setLookFrom(1.2);
@@ -17,6 +17,7 @@ public class RayTracer {
 		scenes[0].setLightColor(new Color3D(1, 1, 1));
 		scenes[0].setAmbientLight(new Color3D(0, 0, 0));
 		scenes[0].setBackground(new Color3D(.2, .2, .2));
+
 		scenes[0].addSurface(new Sphere(new Vector3D(0, .3, 0), .2)
 				.setReflective(new Color3D(.75, .75, .75)));
 		scenes[0].addSurface(new Triangle(new Vector3D(0, -.5, .5),
@@ -25,6 +26,32 @@ public class RayTracer {
 				.setSpecular(new Color3D(1, 1, 1)).setPhongConstant(4));
 		scenes[0].addSurface(new Triangle(new Vector3D(0, -.5, .5),
 				new Vector3D(0, -.5, -.5), new Vector3D(-1, .5, 0))
+				.setDiffuse(new Color3D(1, 1, 0))
+				.setSpecular(new Color3D(1, 1, 1)).setPhongConstant(4));
+
+		scenes[1] = new Scene();
+		scenes[1].setFov(28 * Math.PI / 180);
+		scenes[1].setLookFrom(1);
+		scenes[1].setDirectionToLight(new Vector3D(1, 0, 0));
+		scenes[1].setLightColor(new Color3D(1, 1, 1));
+		scenes[1].setAmbientLight(new Color3D(.1, .1, .1));
+		scenes[1].setBackground(new Color3D(.2, .2, .2));
+
+		scenes[1].addSurface(new Sphere(new Vector3D(.35, 0, -.1), .05)
+				.setDiffuse(new Color3D(1, 1, 1))
+				.setSpecular(new Color3D(1, 1, 1)).setPhongConstant(4));
+		scenes[1].addSurface(new Sphere(new Vector3D(.2, 0, -.1), .075)
+				.setDiffuse(new Color3D(1, 0, 0))
+				.setSpecular(new Color3D(.5, 1, .5)).setPhongConstant(32));
+		scenes[1].addSurface(new Sphere(new Vector3D(-.6, 0, 0), .3)
+				.setDiffuse(new Color3D(0, 1, 0))
+				.setSpecular(new Color3D(.5, 1, .5)).setPhongConstant(32));
+		scenes[1].addSurface(new Triangle(new Vector3D(.3, -.3, -.4),
+				new Vector3D(0, .3, -.1), new Vector3D(-.3, -.3, .2))
+				.setDiffuse(new Color3D(0, 0, 1))
+				.setSpecular(new Color3D(1, 1, 1)).setPhongConstant(32));
+		scenes[1].addSurface(new Triangle(new Vector3D(-.2, .1, .1),
+				new Vector3D(-.2, -.5, .2), new Vector3D(-.2, .1, -.3))
 				.setDiffuse(new Color3D(1, 1, 0))
 				.setSpecular(new Color3D(1, 1, 1)).setPhongConstant(4));
 
