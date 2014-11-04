@@ -36,12 +36,21 @@ public class Ray {
 
 				if (!shadow) {
 					if (s.getReflective() != null) {
-						color = s.getReflective();
+						Ray reflection = new Ray();
+						reflection.setDirection(direction.subtract(
+								s.getNormal()
+										.scale(2 * direction.dotProduct(s
+												.getNormal()))).normalize());
+						reflection.setOrigin(origin.add(reflection.direction
+								.scale(0.01)));
+						reflection.setColor(scene.getBackground());
+						reflection.trace(scene);
+						color = reflection.color.multiply(s.getReflective());
 					} else if (s.getRefractive() != null) {
 						color = s.getRefractive();
 					} else {
-						Vector3D eye = origin.subtract(s.getIntersectionPoint())
-								.normalize();
+						Vector3D eye = origin
+								.subtract(s.getIntersectionPoint()).normalize();
 						Vector3D reflection = s
 								.getNormal()
 								.scale(2 * s.getNormal().dotProduct(
