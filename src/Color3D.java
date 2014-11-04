@@ -37,4 +37,16 @@ public class Color3D {
 	public Color toColor() {
 		return new Color((float) red, (float) green, (float) blue);
 	}
+
+	public double getRed() {
+		return red;
+	}
+
+	public double getGreen() {
+		return green;
+	}
+
+	public double getBlue() {
+		return blue;
+	}
 }
