@@ -48,7 +48,7 @@ public class Sphere extends Surface {
 				return false;
 			t = t1;
 		} else {
-			t = t1;
+			t = t0;
 		}
 
 		intersectionPoint = ray.getOrigin().add(ray.getDirection().scale(t));
