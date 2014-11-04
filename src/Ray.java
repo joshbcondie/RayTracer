@@ -40,9 +40,9 @@ public class Ray {
 					} else if (s.getRefractive() != null) {
 						color = s.getRefractive();
 					} else {
-						Vector3D e = origin.subtract(s.getIntersectionPoint())
+						Vector3D eye = origin.subtract(s.getIntersectionPoint())
 								.normalize();
-						Vector3D r = s
+						Vector3D reflection = s
 								.getNormal()
 								.scale(2 * s.getNormal().dotProduct(
 										scene.getDirectionToLight()))
@@ -64,7 +64,7 @@ public class Ray {
 																.scale(Math
 																		.pow(Math
 																				.max(0,
-																						e.dotProduct(r)),
+																						eye.dotProduct(reflection)),
 																				s.getPhongConstant())))));
 					}
 				}
