@@ -1,5 +1,7 @@
 public class Ray {
 
+	private static int MAX_DEPTH = 3;
+
 	private Vector3D origin;
 	private Vector3D direction;
 	private double intensity;
@@ -8,6 +10,7 @@ public class Ray {
 
 	public Ray() {
 		color = Color3D.BLACK;
+		depth = 0;
 	}
 
 	public void trace(Scene scene) {
@@ -22,16 +25,19 @@ public class Ray {
 				closestIntersection = s.getIntersectionPoint().getZ();
 
 				if (s.getReflective() != null) {
-					Ray reflection = new Ray();
-					reflection.setDirection(direction.subtract(
-							s.getNormal().scale(
-									2 * direction.dotProduct(s.getNormal())))
-							.normalize());
-					reflection.setOrigin(s.getIntersectionPoint().add(
-							reflection.direction.scale(0.01)));
-					reflection.setColor(scene.getBackground());
-					reflection.trace(scene);
-					color = reflection.color.multiply(s.getReflective());
+					if (depth < MAX_DEPTH) {
+						Ray reflection = new Ray();
+						reflection.setDepth(depth + 1);
+						reflection.setDirection(direction.subtract(
+								s.getNormal()
+										.scale(2 * direction.dotProduct(s
+												.getNormal()))).normalize());
+						reflection.setOrigin(s.getIntersectionPoint().add(
+								reflection.direction.scale(0.01)));
+						reflection.setColor(scene.getBackground());
+						reflection.trace(scene);
+						color = reflection.color.multiply(s.getReflective());
+					}
 				} else if (s.getRefractive() != null) {
 					color = s.getRefractive();
 				} else {
