@@ -4,7 +4,6 @@ import java.io.PrintWriter;
 
 public class RayTracer {
 
-	private static final double WINDOW_SIZE = 2;
 	private static final int VIEWPORT_SIZE = 500;
 
 	public static void main(String[] args) throws FileNotFoundException {
@@ -61,14 +60,11 @@ public class RayTracer {
 			for (int y = 0; y < VIEWPORT_SIZE; y++) {
 				for (int x = 0; x < VIEWPORT_SIZE; x++) {
 					Ray ray = new Ray();
-					ray.setOrigin(new Vector3D(0, 0, scenes[z].getLookFrom()
-							+ WINDOW_SIZE / 2
-							/ Math.tan(scenes[z].getFov() / 2)));
-					ray.setDirection(new Vector3D((x - VIEWPORT_SIZE / 2 + 0.5)
-							* WINDOW_SIZE / VIEWPORT_SIZE, (VIEWPORT_SIZE / 2
-							- y - 0.5)
-							* WINDOW_SIZE / VIEWPORT_SIZE, -WINDOW_SIZE / 2
-							/ Math.tan(scenes[z].getFov() / 2)).normalize());
+					ray.setOrigin(new Vector3D(0, 0, scenes[z].getLookFrom()));
+					ray.setDirection(new Vector3D(
+							(x - VIEWPORT_SIZE / 2 + 0.5), (VIEWPORT_SIZE / 2
+									- y - 0.5), -VIEWPORT_SIZE / 2
+									/ Math.tan(scenes[z].getFov())).normalize());
 					ray.setColor(scenes[z].getBackground());
 					ray.trace(scenes[z]);
 					pixels[y][x] = ray.getColor().toColor();
