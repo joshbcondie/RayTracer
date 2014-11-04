@@ -34,12 +34,14 @@ public class Ray {
 					} else if (s.getRefractive() != null) {
 						color = s.getRefractive();
 					} else {
-						Vector3D e = origin.subtract(s.getIntersectionPoint());
+						Vector3D e = origin.subtract(s.getIntersectionPoint())
+								.normalize();
 						Vector3D r = s
 								.getNormal()
 								.scale(2 * s.getNormal().dotProduct(
 										scene.getDirectionToLight()))
-								.subtract(scene.getDirectionToLight());
+								.subtract(scene.getDirectionToLight())
+								.normalize();
 						color = s
 								.getDiffuse()
 								.multiply(scene.getAmbientLight())
