@@ -8,7 +8,7 @@ public class RayTracer {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
-		Scene[] scenes = new Scene[2];
+		Scene[] scenes = new Scene[3];
 		scenes[0] = new Scene();
 		scenes[0].setFov(55 * Math.PI / 180);
 		scenes[0].setLookFrom(1.2);
@@ -53,6 +53,31 @@ public class RayTracer {
 				new Vector3D(-.2, -.5, .2), new Vector3D(-.2, .1, -.3))
 				.setDiffuse(new Color3D(1, 1, 0))
 				.setSpecular(new Color3D(1, 1, 1)).setPhongConstant(4));
+
+		scenes[2] = new Scene();
+		scenes[2].setFov(28 * Math.PI / 180);
+		scenes[2].setLookFrom(1);
+		scenes[2].setDirectionToLight(new Vector3D(0, 0, 1));
+		scenes[2].setLightColor(new Color3D(1, 1, 1));
+		scenes[2].setAmbientLight(new Color3D(0, 0, 0));
+		scenes[2].setBackground(new Color3D(.2, .2, .2));
+
+		scenes[2].addSurface(new Sphere(new Vector3D(0, 0, -2), .3)
+				.setDiffuse(new Color3D(0, 0, 1))
+				.setSpecular(new Color3D(.5, .5, .5)).setPhongConstant(32));
+		scenes[2].addSurface(new Sphere(new Vector3D(0, 1, -2), .3)
+				.setDiffuse(new Color3D(1, 0, 0))
+				.setSpecular(new Color3D(.5, .5, .5)).setPhongConstant(32));
+		scenes[2].addSurface(new Sphere(new Vector3D(1, 0, -2), .3)
+				.setDiffuse(new Color3D(0, 1, 0))
+				.setSpecular(new Color3D(.5, .5, .5)).setPhongConstant(32));
+		scenes[2].addSurface(new Triangle(new Vector3D(0, 3, -5), new Vector3D(
+				-4, -4, -2), new Vector3D(4, -4, -4))
+				.setReflective(new Color3D(0.8, 0.8, 0.8)));
+		scenes[2].addSurface(new Sphere(new Vector3D(1, 0, -4), .5)
+				.setReflective(new Color3D(0, 1, 0)));
+		scenes[2].addSurface(new Sphere(new Vector3D(-.4, 1, -1), .4)
+				.setReflective(new Color3D(1.2, 1.2, 1.2)));
 
 		Color[][] pixels = new Color[VIEWPORT_SIZE][VIEWPORT_SIZE];
 
