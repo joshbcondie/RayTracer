@@ -23,6 +23,7 @@ public class Ray {
 					&& s.getIntersectionPoint().getZ() > closestIntersection) {
 
 				closestIntersection = s.getIntersectionPoint().getZ();
+				color = Color3D.BLACK;
 
 				if (s.getReflective() != null) {
 					if (depth < MAX_DEPTH) {
@@ -36,9 +37,11 @@ public class Ray {
 								reflection.direction.scale(0.01)));
 						reflection.setColor(scene.getBackground());
 						reflection.trace(scene);
-						color = reflection.color.multiply(s.getReflective());
+						color = color.add(reflection.color.multiply(s
+								.getReflective()));
 					}
-				} else if (s.getRefractionIndex() != 0) {
+				}
+				if (s.getRefractionIndex() != 0) {
 					Ray refraction = new Ray();
 					double quotient = 1.003 / s.getRefractionIndex();
 					Vector3D normal = s.getNormal();
@@ -58,8 +61,10 @@ public class Ray {
 					if (s.getRefractive() == null) {
 						s.setRefractive(Color3D.WHITE);
 					}
-					color = refraction.color.multiply(s.getRefractive());
-				} else {
+					color = color.add(refraction.color.multiply(s
+							.getRefractive()));
+				}
+				if (s.getDiffuse() != null) {
 
 					boolean shadow = false;
 					Ray shadowRay = new Ray();
@@ -88,24 +93,24 @@ public class Ray {
 							s.setSpecular(Color3D.BLACK);
 							s.setPhongConstant(1);
 						}
-						color = s
-								.getDiffuse()
-								.multiply(scene.getAmbientLight())
-								.add(scene
-										.getLightColor()
-										.multiply(
-												s.getDiffuse()
-														.scale(Math
-																.max(0,
-																		s.getNormal()
-																				.dotProduct(
-																						scene.getDirectionToLight())))
-														.add(s.getSpecular()
+						color = color
+								.add(s.getDiffuse()
+										.multiply(scene.getAmbientLight())
+										.add(scene
+												.getLightColor()
+												.multiply(
+														s.getDiffuse()
 																.scale(Math
-																		.pow(Math
-																				.max(0,
-																						eye.dotProduct(reflection)),
-																				s.getPhongConstant())))));
+																		.max(0,
+																				s.getNormal()
+																						.dotProduct(
+																								scene.getDirectionToLight())))
+																.add(s.getSpecular()
+																		.scale(Math
+																				.pow(Math
+																						.max(0,
+																								eye.dotProduct(reflection)),
+																						s.getPhongConstant()))))));
 					}
 				}
 			}

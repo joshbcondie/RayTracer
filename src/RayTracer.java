@@ -74,10 +74,11 @@ public class RayTracer {
 		scenes[2].addSurface(new Triangle(new Vector3D(0, 3, -5), new Vector3D(
 				-4, -4, -2), new Vector3D(4, -4, -4))
 				.setReflective(new Color3D(0.8, 0.8, 0.8)));
-		scenes[2].addSurface(new Sphere(new Vector3D(1, 0, -4), .5)
-				.setReflective(new Color3D(0, 1, 0)));
-		scenes[2].addSurface(new Sphere(new Vector3D(.55, .25, -1), .4)
-				.setRefractionIndex(1.01).setRefractive(new Color3D(1, 1, 0)));
+		scenes[2].addSurface(new Sphere(new Vector3D(0, .25, -1), .4)
+				.setRefractionIndex(1.01)
+				.setRefractive(new Color3D(.8, .8, .8))
+				.setDiffuse(new Color3D(.2, .2, .2))
+				.setSpecular(new Color3D(.1, .1, .1)).setPhongConstant(4));
 
 		Color[][] pixels = new Color[VIEWPORT_SIZE][VIEWPORT_SIZE];
 
