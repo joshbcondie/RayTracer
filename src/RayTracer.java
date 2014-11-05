@@ -76,8 +76,8 @@ public class RayTracer {
 				.setReflective(new Color3D(0.8, 0.8, 0.8)));
 		scenes[2].addSurface(new Sphere(new Vector3D(1, 0, -4), .5)
 				.setReflective(new Color3D(0, 1, 0)));
-		scenes[2].addSurface(new Sphere(new Vector3D(0, .25, -1), .4)
-				.setRefractive(1.8));
+		scenes[2].addSurface(new Sphere(new Vector3D(.55, .25, -1), .4)
+				.setRefractionIndex(1.01).setRefractive(new Color3D(1, 1, 0)));
 
 		Color[][] pixels = new Color[VIEWPORT_SIZE][VIEWPORT_SIZE];
 
