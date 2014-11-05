@@ -4,7 +4,7 @@ public abstract class Surface {
 	private Color3D specular;
 	private int phongConstant;
 	private Color3D reflective;
-	private Color3D refractive;
+	private double refractive;
 
 	public abstract boolean intersects(Ray ray);
 
@@ -48,11 +48,11 @@ public abstract class Surface {
 		return this;
 	}
 
-	public Color3D getRefractive() {
+	public double getRefractive() {
 		return refractive;
 	}
 
-	public Surface setRefractive(Color3D refractive) {
+	public Surface setRefractive(double refractive) {
 		this.refractive = refractive;
 		return this;
 	}

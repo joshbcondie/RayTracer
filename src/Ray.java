@@ -38,8 +38,24 @@ public class Ray {
 						reflection.trace(scene);
 						color = reflection.color.multiply(s.getReflective());
 					}
-				} else if (s.getRefractive() != null) {
-					color = s.getRefractive();
+				} else if (s.getRefractive() != 0) {
+					Ray refraction = new Ray();
+					double quotient = 1.003 / s.getRefractive();
+					Vector3D normal = s.getNormal();
+					if (s.getNormal().dotProduct(direction) > 0) {
+						normal = normal.scale(-1);
+						quotient = 1 / quotient;
+					}
+					double c1 = -normal.dotProduct(direction);
+					double c2 = Math.sqrt(1 - quotient * quotient
+							* (1 - c1 * c1));
+					refraction.setDirection(direction.scale(quotient).add(
+							normal.scale(quotient * c1 - c2)));
+					refraction.setOrigin(s.getIntersectionPoint().add(
+							refraction.direction.scale(0.01)));
+					refraction.setColor(scene.getBackground());
+					refraction.trace(scene);
+					color = refraction.color;
 				} else {
 
 					boolean shadow = false;
@@ -49,7 +65,7 @@ public class Ray {
 					shadowRay.setDirection(scene.getDirectionToLight());
 
 					for (Surface s1 : scene.getSurfaces()) {
-						if (s1.intersects(shadowRay)) {
+						if (s1.intersects(shadowRay) && s1.getRefractive() == 0) {
 							shadow = true;
 							color = Color3D.BLACK;
 						}
